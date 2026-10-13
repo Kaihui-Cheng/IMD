@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use IMD, please cite the paper below."
+title: "IMD: Learning Implicit Bias in Generative Spaces for Accelerating Protein Dynamics Emulation"
+type: software
+authors:
+  - family-names: Cheng
+    given-names: Kaihui
+repository-code: "https://github.com/Kaihui-Cheng/IMD"
+license: Apache-2.0
+version: 0.1.0
+preferred-citation:
+  type: article
+  title: "Learning Implicit Bias in Generative Spaces for Accelerating Protein Dynamics Emulation"
+  authors:
+    - family-names: Cheng
+      given-names: Kaihui
+    - family-names: Cai
+      given-names: Zhiqiang
+    - family-names: Xiang
+      given-names: Wenkai
+    - family-names: Hu
+      given-names: Zhihang
+    - family-names: Zhu
+      given-names: Siyu
+    - family-names: Yang
+      given-names: Tzuhsiung
+    - family-names: Qi
+      given-names: Yuan
+  journal: "arXiv preprint arXiv:2606.01833"
+  year: 2026
+  doi: "10.48550/arXiv.2606.01833"
+  url: "https://arxiv.org/abs/2606.01833"

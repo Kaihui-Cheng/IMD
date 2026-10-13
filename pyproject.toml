@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imd-protein"
+version = "0.1.0"
+description = "Learning Implicit Bias in Generative Spaces for Accelerating Protein Dynamics Emulation"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "LICENSES/*.txt"]
+authors = [{name = "Kaihui Cheng"}]
+classifiers = [
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+  "torch==2.6.0",
+  "numpy==1.26.4",
+  "scipy==1.13.1",
+  "pandas==2.3.3",
+  "biopython==1.80",
+  "absl-py==2.3.1",
+  "accelerate==1.12.0",
+  "hydra-core==1.3.2",
+  "omegaconf==2.3.0",
+  "dm-tree==0.1.9",
+  "einops==0.8.1",
+  "mdtraj==1.10.2",
+  "ml-collections==0.1.1",
+  "scikit-learn==1.7.2",
+  "matplotlib==3.8.4",
+  "MDAnalysis==2.7.0",
+  "GPUtil==1.4.0",
+  "icecream==2.1.8",
+  "swanlab==0.7.5",
+  "tqdm==4.64.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "build>=1,<2"]
+
+[project.urls]
+Paper = "https://arxiv.org/abs/2606.01833"
+Repository = "https://github.com/Kaihui-Cheng/IMD"
+Issues = "https://github.com/Kaihui-Cheng/IMD/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["DyneTrion*", "src*", "openfold*", "datasets*", "metrics*"]
+exclude = ["tests*"]
+
+[tool.setuptools.package-data]
+DyneTrion = ["config/*.yaml"]
+"openfold.resources" = ["*.txt"]
+"src.data" = ["*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

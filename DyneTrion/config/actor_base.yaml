@@ -1,0 +1,35 @@
+defaults:
+- _self_
+experiment:
+  seed: 42
+  device: cuda
+  actor_blend_alpha: 0.5
+  bucket_size: 32
+  swanlab:
+    mode: local
+    api_key: null
+    project: IMD
+    log_subdir: logs_swanlab
+data:
+  frame_time: 16
+  num_loader_workers: 4
+  max_res_len: 256
+  num_t: 100
+  min_t: 0.01
+model:
+  pretrained_weights: ./checkpoints/env_model.pth
+  T_steps: 100
+  beta_bias: 0.1
+  guidance_scale: 1.0
+actor:
+  node_dim: ${model.node_embed_size}
+  edge_dim: ${model.edge_embed_size}
+  c_hidden: 256
+  no_heads: 8
+  no_qk_points: 8
+  no_v_points: 12
+  num_blocks: 4
+  max_rope_len: 2048
+  max_energy: 20
+  potential_noise_std: 0.1
+  weight: null

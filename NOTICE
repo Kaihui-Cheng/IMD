@@ -1,0 +1,11 @@
+IMD: Learning Implicit Bias in Generative Spaces for Accelerating Protein Dynamics Emulation
+Copyright 2026 Kaihui Cheng and IMD contributors.
+
+This distribution includes code from, or adapted from:
+- OpenFold: Copyright 2021 AlQuraishi Laboratory; Apache-2.0.
+- AlphaFold: Copyright 2021 DeepMind Technologies Limited; Apache-2.0.
+- Wan: Copyright 2024-2025 The Alibaba Wan Team Authors; Apache-2.0.
+- Self-Forcing: Apache-2.0; original notices are retained where present.
+- BioEmu: Copyright (c) Microsoft Corporation; MIT.
+
+See THIRD_PARTY_NOTICES.md for scope, and LICENSE and LICENSES/ for license texts.

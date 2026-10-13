@@ -1,0 +1,51 @@
+defaults:
+- actor_train
+- _self_
+eval:
+  mode: 2
+  extrapolation_time: 16
+  output_dir: ./outputs/samples
+  eval_batch_size: 1
+  overwrite: false
+  record_last_k: 0
+experiment:
+  training: false
+  use_recoder: false
+  batch_size: 1
+  save_dir: ${eval.output_dir}
+  noise_scale: 1.0
+  center: true
+  actor_blend_alpha: 0.1
+  lora_alpha: null
+  history_decay_mode: distance
+  history_distance_sigma: 1.0
+  history_decay_lambda: 1.0
+  history_decay_t_scale: 0.0
+  history_distance_variant: unnormalized
+  bias_gamma: 0.05
+  max_history: 3
+  actor_condition_mode: none
+  bias_direction: away
+  inline_refine_t: 0.0
+  omega_method: rmsd_kabsch
+  fkc_enabled: false
+  fkc_resample_k: 10
+  fkc_beta: 1.0
+  fkc_ess_frac: 0.5
+  fkc_final_reweight: true
+  fkc_action_mode: option_c
+  fkc_num_particles: 1
+  fkc_particle_chunk: 0
+data:
+  test_csv_path: data/inference.csv
+  num_loader_workers: 0
+  max_res_len: 1024
+  max_protein_num: null
+  dynamics: true
+actor:
+  weight: ./checkpoints/actor/pytorch_model.bin
+model:
+  pretrained_weights: ./checkpoints/env_model.pth
+hydra:
+  run:
+    dir: ${eval.output_dir}/hydra/${now:%Y-%m-%d}/${now:%H-%M-%S}

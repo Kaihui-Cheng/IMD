@@ -1,0 +1,4 @@
+* text=auto eol=lf
+# Preserve formatting and text inherited from upstream.
+openfold/** -whitespace
+LICENSES/* -whitespace

@@ -1,0 +1,134 @@
+defaults:
+- _self_
+data:
+  ref_number: 1
+  motion_number: 2
+  frame_time: 16
+  frame_sample_step: 40
+  stage1: false
+  time_norm: false
+  step_split: null
+  fix_sample_start: null
+  random_sample_train: false
+  split_percent: 0.7
+  keep_first: null
+  dynamics: true
+  eval_start_idx: 0
+  eval_end_idx: 10
+  cfg_drop_rate: 0.1
+  csv_path: data/train.csv
+  val_csv_path: data/val.csv
+  filtering:
+    max_len: 128
+  min_t: 0.01
+  num_t: 100
+diffuser:
+  dynamics: ${data.dynamics}
+  frame_time: ${data.frame_time}
+  diffuse_trans: true
+  diffuse_rot: true
+  r3:
+    min_b: 0.1
+    max_b: 20.0
+    coordinate_scaling: 0.1
+  so3:
+    num_omega: 1000
+    num_sigma: 1000
+    min_sigma: 0.1
+    max_sigma: 1.5
+    schedule: logarithmic
+    cache_dir: .cache/
+    use_cached_score: false
+model:
+  fp16: false
+  cfg_drop_rate: 0.0
+  cfg_drop_in_train: true
+  cfg_gamma: 3.5
+  frame_time: ${data.frame_time}
+  ref_number: ${data.ref_number}
+  motion_number: ${data.motion_number}
+  use_causal_temporal: false
+  use_temporal: true
+  sink_size: 0
+  local_attn_size: -1
+  num_frame_per_block: 6
+  frozen_spatial: false
+  max_rope_len: 1024
+  return_atom37: true
+  dynamics: ${data.dynamics}
+  node_input_embed_size: 384
+  node_embed_size: 384
+  edge_embed_size: 128
+  attention_num_heads: 8
+  skip_dim: 128
+  dropout: 0.0
+  egde_hidden_dim: 32
+  egde_chunk_size: 32
+  embed:
+    index_embed_size: 32
+    aatype_embed_size: 32
+    embed_self_conditioning: true
+    num_bins: 22
+    min_bin: 1e-5
+    max_bin: 20.0
+    skip_feature: false
+  ipa:
+    c_s: ${model.node_embed_size}
+    c_z: ${model.edge_embed_size}
+    c_hidden: 256
+    c_skip: 64
+    no_heads: 8
+    no_qk_points: 8
+    no_v_points: 12
+    num_blocks: 4
+    coordinate_scaling: ${diffuser.r3.coordinate_scaling}
+experiment:
+  project: DyneTrion
+  name: diffusion
+  base_root: ./outputs
+  run_id: null
+  training: true
+  use_ddp: true
+  log_freq: 100
+  batch_size: 4
+  eval_batch_size: 1
+  num_loader_workers: 0
+  num_epoch: 300000
+  learning_rate: 0.0001
+  max_squared_res: 360000
+  prefetch_factor: 100
+  use_gpu: true
+  num_gpus: 1
+  enable_validation: false
+  use_recoder: false
+  recoder:
+    save_path: ${experiment.base_root}/${experiment.project}/${experiment.name}/swanlab/
+    mode: local
+    api_key: ''
+  ckpt_freq: 1000
+  early_ckpt: true
+  ckpt_dir: ${experiment.base_root}/${experiment.project}/${experiment.name}/ckpt/
+  use_warm_start_conf: false
+  warm_start: null
+  reuse_step: true
+  trans_loss_weight: 1.0
+  rot_loss_weight: 1.0
+  rot_loss_t_threshold: 0.0
+  separate_rot_loss: false
+  trans_x0_threshold: 1.0
+  coordinate_scaling: ${diffuser.r3.coordinate_scaling}
+  bb_atom_loss_weight: 1.0
+  bb_atom_loss_t_filter: 0.25
+  dist_mat_loss_weight: 1.0
+  dist_mat_loss_t_filter: 0.25
+  aux_loss_weight: 0.25
+  torsion_loss_weight: 1.0
+  eval_dir: ${experiment.base_root}/${experiment.project}/${experiment.name}/val_outputs/
+  noise_scale: 1.0
+  num_parameters: null
+  trainable_num_parameters: null
+hydra:
+  run:
+    dir: ${experiment.base_root}/${experiment.project}/${experiment.name}/log/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  job:
+    chdir: false

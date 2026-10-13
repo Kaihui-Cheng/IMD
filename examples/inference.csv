@@ -1,0 +1,2 @@
+pdb_id,seq_len,sequence,pdb_path,embed_path
+example,4,AAAA,data/structures/example.pdb,data/embeddings/example.npz

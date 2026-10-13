@@ -1,0 +1,11 @@
+include LICENSE NOTICE THIRD_PARTY_NOTICES.md CITATION.cff CONTRIBUTING.md
+include requirements*.txt .gitignore .gitattributes
+recursive-include LICENSES *.txt
+recursive-include DyneTrion/config *.yaml
+recursive-include openfold/resources *.txt
+recursive-include src/data *.txt
+recursive-include docs *.md
+recursive-include examples *.csv
+recursive-include scripts *.sh *.py
+recursive-include tests *.py
+recursive-include assets *.md *.png *.gif *.mp4

@@ -1,0 +1,46 @@
+defaults:
+- train
+- actor_base
+- _self_
+experiment:
+  name: IMD_supervised
+  save_dir: ./checkpoints/supervised_pretrain
+  plot_frequency: 500
+  ckpt_freq: 5000
+  epochs: 200
+  batch_size: 1
+  learning_rate: 1e-4
+  weight_decay: 1e-6
+  freeze_backbone: true
+  use_env_support_loss: true
+  lambda_support: 0.1
+  env_support_noise_scale: 1.0
+  env_support_loss_type: kl_forward
+  use_history_score_repel: false
+  lambda_history_repel: 0.1
+  use_cn_adaptive_weight: false
+  actor_outputs_bias: false
+  swanlab:
+    project: IMD
+    mode: local
+    log_subdir: logs_pretrain
+  training_mode: supervised_env_support
+  actor_blend_alpha: 1.0
+  num_loader_workers: 2
+  history_decay_mode: distance
+  history_distance_sigma: 1.0
+  history_distance_variant: unnormalized
+data:
+  train_csv_path: data/train.csv
+  test_csv_path: data/val.csv
+  energy_sample_stride: 10
+  context_window: 2
+  frame_sample_step: 40
+  samples_per_traj: 16
+  dynamics: false
+  history_frames: 3
+  frame_time: 16
+  use_dynamic_supervised_loader: true
+  motion_number: 2
+actor:
+  weight: null
